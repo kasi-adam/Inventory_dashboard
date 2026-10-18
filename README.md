@@ -1,7 +1,19 @@
 # NEDCo IT Asset Inventory — PHP dashboard
 
-A sign-in-protected web version of the Finance ICT asset register dashboard.
+[![Semgrep](https://github.com/kasi-adam/inventory_dashboard/actions/workflows/semgrep.yml/badge.svg)](https://github.com/kasi-adam/inventory_dashboard/actions/workflows/semgrep.yml)
+
+> **Note on data:** every record in `sql/seed.sql` (names, serial numbers, locations, ratings) is **fictional sample data** created for development and demonstration. It does not describe real NEDCo staff or equipment.
+
+A sign-in-protected web version of the Finance ICT asset register dashboard, built as a team project during my internship at the Northern Electricity Distribution Company (NEDCo), September – October 2026.
 Needs PHP 8.1+ (with PDO MySQL) and MySQL 5.7+/MariaDB 10.3+. No Composer, no frameworks.
+
+## Security highlights
+
+- **Role-based access control enforced on the server** (Super Admin › Admin › User). Roles are re-read from the database on every request; session, form and URL values are never trusted, and unknown roles fail closed.
+- **Progressive account lock-out** after repeated failed sign-ins, plus a separate **IP throttle**.
+- **Idle session timeout.**
+- **Audit logging** of every account change *and every refused attempt*, surfaced on a Security page with a risk indicator.
+- **Static analysis in CI:** every push and pull request is scanned with [Semgrep](https://semgrep.dev) (PHP, JavaScript and secrets rules).
 
 ## Install (cPanel or any Apache/Nginx host)
 
